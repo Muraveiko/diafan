@@ -1,0 +1,28 @@
+{
+    "name": "mur/diafan-cms-project",
+    "description": "install diafan.cms",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Muraveiko",
+            "email": "oleg@muraveyko.ru"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "diafan/cms",
+                "version": "6.0.0",
+                "dist": {
+                    "url": "https://user.diafan.ru/download/",
+                    "type": "zip"
+                }
+            }
+        }
+    ],
+
+    "require": {
+        "diafan/cms": "^6.0"
+    }
+}
