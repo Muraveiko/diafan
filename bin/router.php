@@ -11,7 +11,6 @@
  }
 
 
-
 function existsFile($file){
    // статика
     $mimeTypes = [
@@ -36,29 +35,22 @@ function existsFile($file){
 }
 
 
-
-
-
-
-
-
-
-
-
-
 $file = $_SERVER['DOCUMENT_ROOT'] . $_SERVER['SCRIPT_NAME'];
 // echo $file, PHP_EOL; die();
 
+
 // rewrite
-if (strlen($_SERVER["REQUEST_URI"])>1) {
     $uri = $_SERVER["REQUEST_URI"];
     $qpos= strpos($uri,'?');
     if($qpos>0){
           $uri = substr($uri,0,$qpos);
     }
     $uri = substr($uri,1);
- 
-    if(preg_match("#^(js|css|adm|modules|cache|img|userfiles)/(.*)$#", $uri, $a)){
+
+if ($uri>'') {
+
+    if(preg_match("#^(js|css|adm|modules|cache|custom|img|includes|langs|plugins|return|themes|tmp|userfiles)/(.*)$#", $uri, $a)){
+
         existsFile($file);
 
         $file = $_SERVER['DOCUMENT_ROOT'].'/../src'.$_SERVER['SCRIPT_NAME'];
@@ -66,13 +58,18 @@ if (strlen($_SERVER["REQUEST_URI"])>1) {
 
         $file = $_SERVER['DOCUMENT_ROOT'].'/../vendor/diafan/cms'.$_SERVER['SCRIPT_NAME'];
         existsFile($file);
+
+
+	header('HTTP/1.0 404 Not Found');
+        header('Content-Type: text/html; charset=utf-8');
+        die('404: '.$_SERVER["REQUEST_URI"]);
+
     }
 
 
 
     if (preg_match("|^shop/1c/(.*)$|", $uri, $a)) {
         die('ne ralizovano');
-        $_GET['rewrite'] = $a[1];
     }elseif (preg_match("|^(.*)sitemap\.xml$|", $uri, $a)) {
         $_GET['rewrite'] = 'sitemap.xml';
     }elseif (preg_match("|^(&*)(.*)/$|", $uri, $a)) {
@@ -82,16 +79,7 @@ if (strlen($_SERVER["REQUEST_URI"])>1) {
     }
 }
 
-if (is_file($file)) {
-    return false;
-}
 
-// 404 ЕСЛИ НЕТ РЕВРАЙТА
-if(empty($_GET['rewrite'])){
-    header('HTTP/1.0 404 Not Found');
-    header('Content-Type: text/html; charset=utf-8');
-    die('404: '.$file);
-}
 
 
 $_SERVER['SCRIPT_NAME'] = '/index.php';
