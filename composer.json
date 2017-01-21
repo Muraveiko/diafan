@@ -1,7 +1,11 @@
 {
     "name": "mur/diafan-cms-project",
     "description": "install diafan.cms",
-    "type": "project",
+    "keywords": [
+        "Diafan.CMS",
+        "Composer",
+        "installer"
+    ],
     "authors": [
         {
             "name": "Muraveiko",
@@ -24,5 +28,10 @@
 
     "require": {
         "diafan/cms": "^6.0"
+    },
+   "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
 }
