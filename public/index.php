@@ -1,5 +1,9 @@
 <?php
-// 3 правки в исходном файле от CMS
+// проверка правильности размертывания
+   if(!file_exists('../vendor/diafan/cms/index.php')){
+      die('выполните composer install');
+   }
+// и 3 правки в исходном файле от CMS
 /**
  * @package    DIAFAN.CMS
  * Bootstrap
