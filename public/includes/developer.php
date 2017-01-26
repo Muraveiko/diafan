@@ -182,26 +182,13 @@ class Dev
 
 	static public function warning($message, $file, $line, $trace)
 	{
-		if(! MOD_DEVELOPER || defined('MOD_DEVELOPER_ADMIN') && MOD_DEVELOPER_ADMIN && empty($_COOKIE['dev']))
-			return true;
-
-		/*if (! empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == 'xmlhttprequest')
-		{
-			self::$exception_result['errors'][self::$exception_field] = $message;
-
-			Custom::inc('plugins/json.php');
-			echo to_json(self::$exception_result);
-			exit;
-		}
-		else
-		{*/
 			$errno = ($file ? $file.':' : '').$line;
 
-			self::$errors[] = array($errno, $message, $trace);
-
-			$c = count(self::$errors);
-			echo '<a href="#error'.$c.'" style="color:red">[ERROR#'.$c.']</a>';
-		//}
+        if (DIRECTORY_SEPARATOR === '\\') {
+            self::$errors[] = array($errno, $message, $trace);
+            echo PHP_EOL . $message . PHP_EOL;
+            echo $errno . PHP_EOL;
+        }
 	}
 
 	static public function fatal($message, $file, $line)
@@ -269,40 +256,8 @@ class Dev
 
 	static private function template($result)
 	{
-		if(! defined('BASE_PATH'))
-		{
-			define('BASE_PATH', "http".(IS_HTTPS ? "s" : '')."://".getenv("HTTP_HOST")."/".(REVATIVE_PATH ? REVATIVE_PATH.'/' : ''));
-		}
-		?>
-		<html>
-		<head>
-			<title>DIAFAN.CMS <?php echo $result['title']?></title>
-			<meta http-equiv="Content-Type" content="text/html;  charset=utf-8">
-			<link href="<?php echo BASE_PATH; ?>adm/css/errors.css" rel="stylesheet" type="text/css">
-			<!--[if lt IE 9]><script src="//yandex.st/jquery/1.10.2/jquery.min.js"></script><![endif]-->
-	<!--[if gte IE 9]><!-->
-		<script type="text/javascript" src="//yandex.st/jquery/2.0.3/jquery.min.js" charset="UTF-8"><</script><!--<![endif]-->
-		</head>
-		<body bgcolor="#FFFFFF" text="#000000" topmargin="100">
-		<center>
-			<table width="550" border="0" cellpadding="3" cellspacing="0">
-				<tr>
-					<td align="right">
-						<a href="http://www.diafan.ru/" target="_blank"><img src="http://www.diafan.ru/logo.gif" border="0" vspace="5"></a>
-					</td>
-					<td>
-						<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-							<font color="red">
-								<?php echo $result['error']['message']; ?></font></b><br>
-							<?php echo $result['error']['file']; ?>:<?php echo $result['error']['line']; ?>
-						</font>
-					</td>
-				</tr>
-			</table>
-		</center>
-		</body>
-		</html>
-		<?php
+        echo $result['error']['message'].PHP_EOL;
+        echo $result['error']['file'].':'.$result['error']['line'].PHP_EOL;
 	}
 
 	/**
