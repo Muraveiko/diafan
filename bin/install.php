@@ -137,7 +137,7 @@ try {
     // ядро
 
     $core_tables = array('service', 'admin', 'config', 'images', 'attachments', 'menu', 'site');
-    $modules = array();
+    $modules = $core_tables;
 
     $dir = Custom::read_dir('modules');
     foreach ($dir as $module) {
@@ -153,9 +153,7 @@ try {
             }
         }
     }
-    foreach ($core_tables as $module) {
-        $class[$module]->tables();
-    }
+    
     foreach ($modules as $module) {
         $class[$module]->tables();
     }
