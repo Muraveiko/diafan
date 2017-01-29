@@ -5,13 +5,14 @@ define("VERSION", "6.0");
 
 include_once(ABSOLUTE_PATH . "config.php");
 
-if (!defined("DB_PREFIX")) {
-    die('no DB_PREFIX');
-}
-$prefix = DB_PREFIX;
 
 if ($argc > 1) {
     $prefix = $argv[1] . '_';
+}else{
+    if (!defined("DB_PREFIX")) {
+        die('no DB_PREFIX');
+    }
+    $prefix = DB_PREFIX;
 }
 
 include_once ABSOLUTE_PATH . 'includes/custom.php';

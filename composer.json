@@ -23,12 +23,27 @@
                     "type": "zip"
                 }
             }
-        }
+        },
+	{
+        	"type":"package",
+	        "package": {
+	          "name": "muraveiko/Symfony-Profiler",
+        	  "version":"master",
+	          "source": {
+        	      "url": "https://github.com/Muraveiko/Symfony-Profiler",
+	              "type": "git",
+        	      "reference":"master"
+	            }
+        	}
+       }
     ],
-
+    "minimum-stability" : "dev",
     "require": {
 	"php": ">=5.2.1",
         "diafan/cms": "^6.0"
+    },
+    "require-dev": {
+       "muraveiko/Symfony-Profiler":"master"
     },
    "extra": {
         "branch-alias": {

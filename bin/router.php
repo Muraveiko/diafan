@@ -36,14 +36,10 @@ function existsFile($file){
 }
 
 
-
-
-
-
-
-
-
-
+// Workaround https://bugs.php.net/64566
+if (ini_get('auto_prepend_file') && !in_array(realpath(ini_get('auto_prepend_file')), get_included_files(), true)) {
+    require ini_get('auto_prepend_file');
+}
 
 
 $file = $_SERVER['DOCUMENT_ROOT'] . $_SERVER['SCRIPT_NAME'];
@@ -73,6 +69,9 @@ if (strlen($_SERVER["REQUEST_URI"])>1) {
     if (preg_match("|^shop/1c/(.*)$|", $uri, $a)) {
         die('ne ralizovano');
         $_GET['rewrite'] = $a[1];
+    }elseif (preg_match("|^_profiler/|", $uri, $a)) {
+        include(dirname(dirname(__FILE__)) . '/_profiler/index.php');
+        die();
     }elseif (preg_match("|^(.*)sitemap\.xml$|", $uri, $a)) {
         $_GET['rewrite'] = 'sitemap.xml';
     }elseif (preg_match("|^(&*)(.*)/$|", $uri, $a)) {
