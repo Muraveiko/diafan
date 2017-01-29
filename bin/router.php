@@ -70,7 +70,7 @@ if (strlen($_SERVER["REQUEST_URI"])>1) {
         die('ne ralizovano');
         $_GET['rewrite'] = $a[1];
     }elseif (preg_match("|^_profiler/|", $uri, $a)) {
-        include(dirname(dirname(__FILE__)) . '/_profiler/index.php');
+        include(dirname(dirname(__FILE__)) . '/vendor/muraveiko/Symfony-Profiler/_profiler/index.php');
         die();
     }elseif (preg_match("|^(.*)sitemap\.xml$|", $uri, $a)) {
         $_GET['rewrite'] = 'sitemap.xml';
