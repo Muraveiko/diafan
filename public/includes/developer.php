@@ -8,6 +8,9 @@
  * @copyright  Copyright (c) 2003-2016 OOO «Диафан» (http://www.diafan.ru/)
  */
 
+use Symfony\Component\Debug\Debug;
+use Composer\Autoload\ClassLoader;
+
 if (! defined('DIAFAN'))
 {
 	$path = __FILE__; $i = 0;
@@ -18,6 +21,7 @@ if (! defined('DIAFAN'))
 	}
 	include $path.'/includes/404.php';
 }
+
 
 /**
  * Dev
@@ -80,10 +84,8 @@ class Dev
 		// регистрация ошибок
 		set_error_handler(array('Dev', 'other_error_catcher'));
 
-		register_shutdown_function(array('Dev', 'shutdown'));
+//		register_shutdown_function(array('Dev', 'shutdown'));
 
-		Custom::inc('includes/gzip.php');
-		Gzip::init();
 
 		ini_set('display_errors', 'on');
 		error_reporting(E_ALL | E_STRICT);
@@ -127,7 +129,6 @@ class Dev
 		{
 			self::print_errors();
 		}
-		Gzip::do_gzip();
 	}
 
 	static public function other_error_catcher($line, $message)
@@ -196,7 +197,6 @@ class Dev
 		Dev::$is_error = true;
 
 		ob_end_clean();
-		Gzip::init();
 
 		if (! empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == 'xmlhttprequest')
 		{
